@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markup Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1D2757;
+            color: white;
+            max-width: 320px;
+            margin: 50px auto;
+            text-align: center;
+            padding: 20px;
+        }
+        img {
+            width: 180px;
+            max-height: 80px;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            text-align: center;
+            background-color: #2A3B7A;
+            color: white;
+        }
+        input::placeholder {
+            color: #B0B0B0;
+        }
+        .result {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="https://images.squarespace-cdn.com/content/v1/637ad0ead5271b72c99c5a4e/090ab83b-bf8e-4b5e-80a3-a65a46838378/BH+dist+3-1.png?format=1500w" alt="Logo">
+
+    <h2>Markup Calculator</h2>
+    
+    <label>Cost:</label>
+    <input type="number" inputmode="decimal" pattern="[0-9]*" step="any" id="cost" placeholder="Enter cost" oninput="calculate()">
+    
+    <label>Markup %:</label>
+    <input type="number" inputmode="decimal" pattern="[0-9]*" step="any" id="markup" placeholder="Enter markup %" oninput="calculate()">
+    
+    <div class="result">Selling Price: <span id="sellingPrice">-</span></div>
+
+    <script>
+        function calculate() {
+            let cost = parseFloat(document.getElementById("cost").value) || 0;
+            let markup = parseFloat(document.getElementById("markup").value) / 100 || 0;
+            
+            if (markup >= 1) {
+                document.getElementById("sellingPrice").innerText = "Invalid %";
+                return;
+            }
+            
+            let sellingPrice = cost / (1 - markup);
+            document.getElementById("sellingPrice").innerText = sellingPrice.toFixed(2);
+        }
+    </script>
+
+</body>
+</html>
