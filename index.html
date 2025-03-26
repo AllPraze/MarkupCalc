@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Margin Calculator</title>
+    <title>Margin & Markup Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #1D2757;
             color: white;
-            max-width: 320px;
+            max-width: 400px;
             margin: 50px auto;
             text-align: center;
             padding: 20px;
@@ -19,24 +19,37 @@
             max-height: 80px;
             margin-bottom: 20px;
         }
+        .calculator-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .calculator {
+            background-color: #2A3B7A;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        h2 {
+            margin-bottom: 10px;
+        }
         input {
-            width: 100%;
+            width: 90%;
             padding: 10px;
             margin: 8px 0;
             font-size: 18px;
             border: none;
             border-radius: 8px;
             text-align: center;
-            background-color: #2A3B7A;
-            color: white;
+            background-color: white;
+            color: black;
         }
         input::placeholder {
-            color: #B0B0B0;
+            color: #555;
         }
         .result {
             font-size: 22px;
             font-weight: bold;
-            margin-top: 15px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -44,28 +57,57 @@
 
     <img src="https://images.squarespace-cdn.com/content/v1/637ad0ead5271b72c99c5a4e/090ab83b-bf8e-4b5e-80a3-a65a46838378/BH+dist+3-1.png?format=1500w" alt="Logo">
 
-    <h2>Margin Calculator</h2>
-    
-    <label>Cost:</label>
-    <input type="number" inputmode="decimal" pattern="[0-9]*" step="any" id="cost" placeholder="Enter cost" oninput="calculate()">
-    
-    <label>Margin %:</label>
-    <input type="number" inputmode="decimal" pattern="[0-9]*" step="any" id="margin" placeholder="Enter margin %" oninput="calculate()">
-    
-    <div class="result">Selling Price: <span id="sellingPrice">-</span></div>
+    <div class="calculator-container">
+        <!-- Margin Calculator -->
+        <div class="calculator">
+            <h2>Margin Calculator</h2>
+            <label>Cost:</label>
+            <input type="number" inputmode="decimal" step="any" id="costMargin" placeholder="Enter cost" oninput="calculateMargin()">
+            
+            <label>Margin %:</label>
+            <input type="number" inputmode="decimal" step="any" id="margin" placeholder="Enter margin %" oninput="calculateMargin()">
+            
+            <div class="result">Selling Price: <span id="sellingPriceMargin">-</span></div>
+        </div>
+
+        <!-- Markup Calculator -->
+        <div class="calculator">
+            <h2>Markup Calculator</h2>
+            <label>Cost:</label>
+            <input type="number" inputmode="decimal" step="any" id="costMarkup" placeholder="Enter cost" oninput="calculateMarkup()">
+            
+            <label>Markup Multiplier:</label>
+            <input type="number" inputmode="decimal" step="any" id="markup" placeholder="Enter markup (e.g. 1.25)" oninput="calculateMarkup()">
+            
+            <div class="result">Selling Price: <span id="sellingPriceMarkup">-</span></div>
+        </div>
+    </div>
 
     <script>
-        function calculate() {
-            let cost = parseFloat(document.getElementById("cost").value) || 0;
+        function calculateMargin() {
+            let cost = parseFloat(document.getElementById("costMargin").value) || 0;
             let margin = parseFloat(document.getElementById("margin").value) / 100 || 0;
             
             if (margin >= 1) {
-                document.getElementById("sellingPrice").innerText = "Invalid %";
+                document.getElementById("sellingPriceMargin").innerText = "Invalid %";
                 return;
             }
-            
+
             let sellingPrice = cost / (1 - margin);
-            document.getElementById("sellingPrice").innerText = sellingPrice.toFixed(2);
+            document.getElementById("sellingPriceMargin").innerText = sellingPrice.toFixed(2);
+        }
+
+        function calculateMarkup() {
+            let cost = parseFloat(document.getElementById("costMarkup").value) || 0;
+            let markup = parseFloat(document.getElementById("markup").value) || 0;
+            
+            if (markup < 1) {
+                document.getElementById("sellingPriceMarkup").innerText = "Invalid Multiplier";
+                return;
+            }
+
+            let sellingPrice = cost * markup;
+            document.getElementById("sellingPriceMarkup").innerText = sellingPrice.toFixed(2);
         }
     </script>
 
