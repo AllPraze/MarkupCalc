@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Markup Calculator</title>
+    <title>Margin Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -44,27 +44,27 @@
 
     <img src="https://images.squarespace-cdn.com/content/v1/637ad0ead5271b72c99c5a4e/090ab83b-bf8e-4b5e-80a3-a65a46838378/BH+dist+3-1.png?format=1500w" alt="Logo">
 
-    <h2>Markup Calculator</h2>
+    <h2>Margin Calculator</h2>
     
     <label>Cost:</label>
     <input type="number" inputmode="decimal" pattern="[0-9]*" step="any" id="cost" placeholder="Enter cost" oninput="calculate()">
     
-    <label>Markup %:</label>
-    <input type="number" inputmode="decimal" pattern="[0-9]*" step="any" id="markup" placeholder="Enter markup %" oninput="calculate()">
+    <label>Margin %:</label>
+    <input type="number" inputmode="decimal" pattern="[0-9]*" step="any" id="margin" placeholder="Enter margin %" oninput="calculate()">
     
     <div class="result">Selling Price: <span id="sellingPrice">-</span></div>
 
     <script>
         function calculate() {
             let cost = parseFloat(document.getElementById("cost").value) || 0;
-            let markup = parseFloat(document.getElementById("markup").value) / 100 || 0;
+            let margin = parseFloat(document.getElementById("margin").value) / 100 || 0;
             
-            if (markup >= 1) {
+            if (margin >= 1) {
                 document.getElementById("sellingPrice").innerText = "Invalid %";
                 return;
             }
             
-            let sellingPrice = cost / (1 - markup);
+            let sellingPrice = cost / (1 - margin);
             document.getElementById("sellingPrice").innerText = sellingPrice.toFixed(2);
         }
     </script>
